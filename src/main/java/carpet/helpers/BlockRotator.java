@@ -3,7 +3,6 @@ package carpet.helpers;
 import carpet.fakes.PistonBlockInterface;
 import carpet.CarpetSettings;
 import net.minecraft.block.AbstractRailBlock;
-import net.minecraft.block.AbstractRedstoneGateBlock;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,11 +11,10 @@ import net.minecraft.block.ComparatorBlock;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.EndRodBlock;
 import net.minecraft.block.FacingBlock;
-import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.GlazedTerracottaBlock;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.LeverBlock;
+import net.minecraft.block.LadderBlock;
 import net.minecraft.block.ObserverBlock;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.PistonBlock;
@@ -24,6 +22,8 @@ import net.minecraft.block.RepeaterBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.block.WallTorchBlock;
+import net.minecraft.block.WallRedstoneTorchBlock;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.block.enums.BlockHalf;
@@ -287,8 +287,7 @@ public class BlockRotator
         Vec3d hitVec = hit.getPos().subtract(pos.getX(), pos.getY(), pos.getZ());
         Direction facing = hit.getSide();
         BlockState newState = null;
-        if ( (block instanceof GlazedTerracottaBlock) || (block instanceof AbstractRedstoneGateBlock) || (block instanceof AbstractRailBlock) ||
-             (block instanceof TrapdoorBlock)         || (block instanceof LeverBlock)         || (block instanceof FenceGateBlock))
+        if ((block instanceof HorizontalFacingBlock || block instanceof AbstractRailBlock) && !(block instanceof BedBlock))
         {
             newState = state.rotate(BlockRotation.CLOCKWISE_90);
         }
@@ -318,6 +317,15 @@ public class BlockRotator
             {
                 newState =  state.with(HopperBlock.FACING, state.get(HopperBlock.FACING).rotateYClockwise());
             }
+        }
+        else if (block instanceof WallTorchBlock) {
+                newState =  state.with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING).rotateYClockwise());
+        }
+        else if (block instanceof WallRedstoneTorchBlock) {
+                newState =  state.with(WallRedstoneTorchBlock.FACING, state.get(WallRedstoneTorchBlock.FACING).rotateYClockwise());
+        }
+        else if (block instanceof LadderBlock) {
+                newState =  state.with(LadderBlock.FACING, state.get(LadderBlock.FACING).rotateYClockwise());
         }
         else if (block instanceof StairsBlock)
         {
