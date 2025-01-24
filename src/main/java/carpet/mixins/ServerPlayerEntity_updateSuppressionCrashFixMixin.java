@@ -46,7 +46,8 @@ public abstract class ServerPlayerEntity_updateSuppressionCrashFixMixin extends 
     }
 
     private void logUpdateSuppressionPlayer(BlockPos pos) {
-        if(LoggerRegistry.__updateSuppressedCrashes) {
+        CarpetSettings.LOG.info("Server crash prevented in: player tick - at: [ " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + " ]");
+        if (LoggerRegistry.__updateSuppressedCrashes) {
             LoggerRegistry.getLogger("updateSuppressedCrashes").log(() -> {
                 return new BaseText[]{Messenger.c(
                         "w Server crash prevented in: ",
