@@ -206,7 +206,11 @@
     "WallStandingBlockItem_creativeNoClipMixin",
     "ShulkerBoxBlockEntity_creativeNoClipMixin",
     "EndGatewayBlockEntity_creativeNoClipMixin",
-    "LivingEntity_creativeFlyMixin"
+    "LivingEntity_creativeFlyMixin",
+
+    "World_updateSuppressionCrashFixMixin",
+    "MinecraftServer_updateSuppressionCrashFixMixin",
+    "ServerPlayerEntity_updateSuppressionCrashFixMixin"
 
   ],
   "client": [

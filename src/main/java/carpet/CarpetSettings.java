@@ -18,9 +18,7 @@ import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -45,7 +43,7 @@ import static carpet.settings.RuleCategory.CLIENT;
 @SuppressWarnings("CanBeFinal")
 public class CarpetSettings
 {
-    public static final String carpetVersion = "1.4.44+v250122";
+    public static final String carpetVersion = "1.4.44+v250124";
     public static final Logger LOG = LogManager.getLogger("carpet");
     public static ThreadLocal<Boolean> skipGenerationChecks = ThreadLocal.withInitial(() -> false);
     public static ThreadLocal<Boolean> impendingFillSkipUpdates = ThreadLocal.withInitial(() -> false);
@@ -927,6 +925,12 @@ public class CarpetSettings
             validate = updateSuppressionBlockModes.class
     )
     public static String updateSuppressionBlock = "false";
+
+    @Rule(
+            desc = "Fixes update suppression causing server crashes.",
+            category = {BUGFIX}
+    )
+    public static boolean updateSuppressionCrashFix = false;
 
     public static int getInteger(String s) {
         try {

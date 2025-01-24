@@ -28,6 +28,7 @@ public class LoggerRegistry
     public static boolean __packets;
     public static boolean __pathfinding;
     public static boolean __explosions;
+    public static boolean __updateSuppressedCrashes;
 
     public static void initLoggers()
     {
@@ -46,8 +47,8 @@ public class LoggerRegistry
         registerLogger("packets", HUDLogger.stardardHUDLogger("packets", null, null));
         registerLogger("counter",HUDLogger.stardardHUDLogger("counter","white", Arrays.stream(DyeColor.values()).map(Object::toString).toArray(String[]::new)));
         registerLogger("mobcaps", HUDLogger.stardardHUDLogger("mobcaps", "dynamic",new String[]{"dynamic", "overworld", "nether","end"}));
-                registerLogger("explosions", Logger.stardardLogger("explosions", "brief",new String[]{"brief", "full"}, true));
-
+        registerLogger("explosions", Logger.stardardLogger("explosions", "brief",new String[]{"brief", "full"}, true));
+        registerLogger("updateSuppressedCrashes", Logger.stardardLogger("updateSuppressedCrashes", null,null));
     }
 
     /**
@@ -172,7 +173,4 @@ public class LoggerRegistry
             log.onPlayerDisconnect(player);
         }
     }
-
-
-
 }
