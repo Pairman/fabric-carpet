@@ -201,8 +201,13 @@ public class LogCommand
             Messenger.m(source, "r Unknown logger: ","rb "+logname);
             return 0;
         }
+        if (!LoggerRegistry.getLogger(logname).isOptionValid(option))
+        {
+            Messenger.m(source, "r Invalid option: ", "rb "+option);
+            return 0;
+        }
         LoggerRegistry.subscribePlayer(player_name, logname, option);
-        if (option!=null)
+        if (option != null)
         {
             Messenger.m(source, "gi Subscribed to " + logname + "(" + option + ")");
         }
@@ -210,6 +215,6 @@ public class LogCommand
         {
             Messenger.m(source, "gi Subscribed to " + logname);
         }
-            return 1;
+        return 1;
     }
 }
