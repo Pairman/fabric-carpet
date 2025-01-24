@@ -202,7 +202,7 @@ public class PlayerCommand
             Messenger.m(context.getSource(), "r Player ", "rb " + playerName, "r  is already logged on");
             return true;
         }
-        GameProfile profile = server.getUserCache().findByName(playerName).orElse(null);
+        GameProfile profile = server.getUserCache().findByName(playerName);
         if (profile == null)
         {
             if (!CarpetSettings.allowSpawningOfflinePlayers)
@@ -300,7 +300,6 @@ public class PlayerCommand
         {
             // Force override flying to true for spectator players, or they will fell out of the world.
             flying = true;
-                                                                                                                                                                }
         }
         String playerName = StringArgumentType.getString(context, "player");
         if (playerName.length()>maxPlayerLength(source.getMinecraftServer()))

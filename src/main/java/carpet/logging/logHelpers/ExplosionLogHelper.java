@@ -28,6 +28,7 @@ public class ExplosionLogHelper
 
     private static long lastGametime = 0;
     private static int explosionCountInCurretGT = 0;
+    private static boolean newTick;
 
     public ExplosionLogHelper(Entity entity, double x, double y, double z, float power, boolean createFire, Explosion.DestructionType blockDestructionType) {
         this.entity = entity;
@@ -44,14 +45,16 @@ public class ExplosionLogHelper
 
     public void onExplosionDone(long gametime)
     {
-        List<BaseText> messages = new ArrayList<>();
+        newTick = false;
         if (!(lastGametime == gametime)){
             explosionCountInCurretGT = 0;
             lastGametime = gametime;
-            messages.add(c("wb tick : ", "d " + gametime));
+            newTick = true;
         }
         explosionCountInCurretGT++;
         LoggerRegistry.getLogger("explosions").log( (option) -> {
+            List<BaseText> messages = new ArrayList<>();
+            if(newTick) messages.add(c("wb tick : ", "d " + gametime));
             if ("brief".equals(option))
             {
                 messages.add( c("d #" + explosionCountInCurretGT,"gb ->",
@@ -92,34 +95,11 @@ public class ExplosionLogHelper
     }
 
 
-    public static class EntityChangedStatusWithCount
+    public static record EntityChangedStatusWithCount(Vec3d pos, EntityType type, Vec3d accel)
     {
-        public final Vec3d pos;
-        public final EntityType type;
-        public final Vec3d accel;
-
         public EntityChangedStatusWithCount(Entity e, Vec3d accel)
         {
-            this.pos = e.getPos();
-            this.type = e.getType();
-            this.accel = accel;
-        }
-
-        @Override
-        public boolean equals(Object obj)
-        {
-            if (obj instanceof EntityChangedStatusWithCount)
-            {
-                EntityChangedStatusWithCount other = (EntityChangedStatusWithCount) obj;
-                return other.pos.equals(pos) && other.accel.equals(accel) && other.type.equals(type);
-            }
-            return super.equals(obj);
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return pos.hashCode()+ type.hashCode()+accel.hashCode();
+            this(e.getPos(), e.getType(), accel);
         }
     }
 }
