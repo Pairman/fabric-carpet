@@ -52,7 +52,7 @@ public abstract class ServerPlayerEntity_updateSuppressionCrashFixMixin extends 
                         "w Server crash prevented in: ",
                         "m player tick ",
                         "w - at: ",
-                        "g [ " + pos.toShortString() + " ]"
+			"g [ " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + " ]"
                 )};
             });
         }

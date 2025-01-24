@@ -49,7 +49,7 @@ public class MinecraftServer_updateSuppressionCrashFixMixin {
                         "w Server crash prevented in: ",
                         "m world tick ",
                         "w - at: ",
-                        "g [ " + pos.toShortString() + " ]"
+                        "g [ " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + " ]"
                 )};
             });
         }
