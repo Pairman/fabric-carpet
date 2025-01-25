@@ -1,5 +1,7 @@
 package carpet.mixins;
 
+import carpet.CarpetSettings;
+
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
 import net.minecraft.server.network.ServerPlayerEntity;
 
