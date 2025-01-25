@@ -12,6 +12,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import java.util.Objects;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -56,12 +57,10 @@ public abstract class ItemEntityMixin extends Entity implements ItemEntityInterf
     private void removeEmptyShulkerBoxTags(World worldIn, double x, double y, double z, ItemStack stack, CallbackInfo ci)
     {
         if (CarpetSettings.stackableShulkerBoxes
-                && stack.getItem() instanceof BlockItem
-                && ((BlockItem)stack.getItem()).getBlock() instanceof ShulkerBoxBlock)
+                && stack.getItem() instanceof BlockItem bi
+                && bi.getBlock() instanceof ShulkerBoxBlock)
         {
-            if (InventoryHelper.cleanUpShulkerBoxTag(stack)) {
-                ((ItemEntity) (Object) this).setStack(stack);
-            }
+            InventoryHelper.cleanUpShulkerBoxTag(stack);
         }
     }
 
@@ -96,8 +95,8 @@ public abstract class ItemEntityMixin extends Entity implements ItemEntityInterf
         if (selfStack.getItem() == otherStack.getItem()
                 && !InventoryHelper.shulkerBoxHasItems(selfStack)
                 && !InventoryHelper.shulkerBoxHasItems(otherStack)
-                && selfStack.hasTag() == otherStack.hasTag()
-                && selfStack.getCount() + otherStack.getCount() <= SHULKERBOX_MAX_STACK_AMOUNT)
+                && Objects.equals(selfStack.getTag(), otherStack.getTag()) // empty block entity tags are cleaned up when spawning
+                && selfStack.getCount() <= SHULKERBOX_MAX_STACK_AMOUNT)
         {
             int amount = Math.min(otherStack.getCount(), SHULKERBOX_MAX_STACK_AMOUNT - selfStack.getCount());
 
