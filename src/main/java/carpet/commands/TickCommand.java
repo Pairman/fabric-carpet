@@ -47,10 +47,10 @@ public class TickCommand
                 then(literal("freeze").executes( (c)-> toggleFreeze(c.getSource(), false)).
                         then(literal("deep").executes( (c)-> toggleFreeze(c.getSource(), true)))).
                 then(literal("step").
-                        executes((c) -> step(1)).
+                        executes((c) -> step(c.getSource(), 1)).
                         then(argument("ticks", integer(1,72000)).
                                 suggests( (c, b) -> suggestMatching(new String[]{"20"},b)).
-                                executes((c) -> step(getInteger(c,"ticks"))))).
+                                executes((c) -> step(c.getSource(), getInteger(c,"ticks"))))).
                 then(literal("superHot").executes( (c)-> toggleSuperHot(c.getSource()))).
                 then(literal("health").
                         executes( (c) -> healthReport(c.getSource(), 100)).
@@ -108,9 +108,10 @@ public class TickCommand
         return 1;
     }
 
-    private static int step(int advance)
+    private static int step(ServerCommandSource source, int advance)
     {
         TickSpeed.add_ticks_to_run_in_pause(advance);
+        Messenger.m(source, "gi Stepping" + advance + " tick" + (advance > 1 ? "s" : ""));
         return 1;
     }
 
