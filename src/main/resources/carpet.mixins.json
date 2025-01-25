@@ -210,7 +210,8 @@
 
     "World_updateSuppressionCrashFixMixin",
     "MinecraftServer_updateSuppressionCrashFixMixin",
-    "ServerPlayerEntity_updateSuppressionCrashFixMixin"
+    "ServerPlayerEntity_updateSuppressionCrashFixMixin",
+    "ThreadedAnvilChunkStorage_creativePlayersLoadChunksMixin"
 
   ],
   "client": [
