@@ -1461,7 +1461,7 @@ public class EntityValue extends Value
         });
 
         put("absorption", (e, v) -> {
-            if (e instanceof PlayerEntity) ((PlayerEntity) e).setAbsorptionAmount((float) NumericValue.asNumber(v, "absorbtion").getLong());
+            if (e instanceof PlayerEntity) ((PlayerEntity) e).setAbsorptionAmount(NumericValue.asNumber(v, "absorbtion").getFloat());
         });
 
         put("add_xp", (e, v) -> {
